@@ -19,12 +19,14 @@ for /F %%x in ('dir /B/D %ORIGINAL_FOLDER%') do (
 		)
 
   echo Calculating SSIM for !FILENAME_ORIGINAL!...  
-	java -Xmx2000m -jar photohawk.jar --read-left dcraw --read-right dcraw ssim !FILEPATH_ORIGINAL! !FILEPATH_CONVERTED! > tmpFile 
+	java -Xmx1000m -jar photohawk.jar --read-left dcraw --read-right dcraw ssim !FILEPATH_ORIGINAL! !FILEPATH_CONVERTED! > tmpFile
+	set SSIM=null 
 	set /p SSIM= < tmpFile 
 	del tmpFile 
 	echo SSIM = !SSIM!
 	@echo off
 	@echo !FILENAME_ORIGINAL!	!SSIM! >> SSIM.txt
+	set SSIM=null
 )
 pause
 
